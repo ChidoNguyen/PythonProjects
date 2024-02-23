@@ -83,21 +83,44 @@ def sel_soup(url):
     soup = BeautifulSoup(final_html, 'lxml')
     return soup
 
+#*Function : matchup_div()
+#@param : versus is list of html elements with Tag.a related to "dates" games
 def versus_data(versus):
     #versus is list of Tag.a objects we pull href out first
     team_vs_string = []
 
     for a_items in versus:
-        a_items.get('href') #grabs string x vs y 
+        vs_text = a_items.get('href') #grabs string x vs y 
         p_items = a_items.find_all('p')
+        time_text = ""
         for text in p_items:
             if 'GameCardMatchupStatusText' in text.get('class')[0]:
-                print(text.string)
+               time_text = text.string
+               break
+        team_vs_string.append((vs_text, time_text))
+    
+    return team_vs_string
+def ui_processing(teams):
+    #teams list  of data pairs ( teams , times)
+    #string format : '/game/XXX-vs-YYY-randomdata'
+    #time string can be kept as is
+    #can probably "hardcode" specific text string location anchors  // use ReGex down the line if things change
+    finalized = []
+    for data in teams:
+        lineup, times = data
+        #find vs go forward and back 1 to eliminate '-' get 3 letters of text
+        vs = lineup.rfind('vs')
+        teamOne = lineup[vs-4:vs-1]
+        teamTwo = lineup[vs+3:vs+6]
+        finalized.append((teamOne, teamTwo, times))
+    return finalized
 def main():
     url = "https://www.nba.com/games?date=2024-02-23" 
     selenium_soup = sel_soup(url)
     versus = matchup_extraction(selenium_soup)
     line_up = versus_data(versus)
+    temp_text = ui_processing(line_up)
+    print(temp_text)
     #_div = matchup_div(BeautifulSoup(urllib.request.urlopen(baseURL+path_nba_games_today), 'lxml'))
     #tmp = nbaSoup.find_all('data-text')
     #print(tmp)
