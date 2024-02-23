@@ -45,42 +45,24 @@ def nba_game_path(soup, gPath):
 
 #*Function : matchup_div()
 #@param : 
-def matchup_div(soup):
+def matchup_extraction(soup):
+    ''' find all sections with 'GameCard_gcMain' in their class string
+        sections.children has a-tag html element we can extract matchups and time for later
+    '''
     sects = soup.find_all('section')
     gamecard_sects = []
-    #html skeleton
-    #sects -> get team abbreviation from href /teama_vs_teamb
-    #traverse children to get game time
     for items in sects:
-        #print(items.get('class')[0])
         if 'GameCard_gcMain' in items.get('class')[0]: 
             gamecard_sects.append(items)
-    
-    #children in sect_gc has 2 1) a and 2) ul we can skip the UL and extract the a tag
     teams = []
     for i in gamecard_sects:
         a_kids = list(i.children) # tag a and tag ul 
         teams.append(a_kids[0])
-    return
-    try:
-        divs = soup.find_all('div')
-    except  urllib.error.URLError as e:
-        print(e)
-    tmp = []
-    for items in divs:
-        if 'class' in items.attrs and items.attrs['class'] : tmp.append(items.get('class'))
-    
-    return
-            
-        #from our divs find extract all the div's classes and find if "Games" word is in the class descriptions
-        #GamesView ________gameCard#
-        #if 'class' in items.attrs and len(items.attrs['class']) > 0 and items.attrs['class'][0].find('Games') >= 0 :
-         #   if re.search('^(.*GameCard.*)$',items.attrs['class'][0]): print(items)
+    return teams
 
     
 #*Might needt selenium header to fully load webpage prior to souping it
-def sel_soup():
-    url = "https://www.nba.com/games"    
+def sel_soup(url):  
     #headless
     chrome_opts = Options()
     chrome_opts.add_argument('--headless')
@@ -101,12 +83,21 @@ def sel_soup():
     soup = BeautifulSoup(final_html, 'lxml')
     return soup
 
+def versus_data(versus):
+    #versus is list of Tag.a objects we pull href out first
+    team_vs_string = []
+
+    for a_items in versus:
+        a_items.get('href') #grabs string x vs y 
+        p_items = a_items.find_all('p')
+        for text in p_items:
+            if 'GameCardMatchupStatusText' in text.get('class')[0]:
+                print(text.string)
 def main():
-    baseURL = "https://www.nba.com/"
-    path_nba_games_today = "games/"
-    nbaSoup = make_nba_soup(baseURL)
-    score_board = nba_game_path(nbaSoup , path_nba_games_today) # returns /path 
-    _div = matchup_div(sel_soup())
+    url = "https://www.nba.com/games?date=2024-02-23" 
+    selenium_soup = sel_soup(url)
+    versus = matchup_extraction(selenium_soup)
+    line_up = versus_data(versus)
     #_div = matchup_div(BeautifulSoup(urllib.request.urlopen(baseURL+path_nba_games_today), 'lxml'))
     #tmp = nbaSoup.find_all('data-text')
     #print(tmp)
