@@ -1,0 +1,25 @@
+<!doctype html>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>Ugly Skeleton NBA Data</title>
+</head>
+<body>
+	<h1> Today's Game Info </h1>
+	<ul id = 'gameinfo'>
+		<script>
+		fetch('/nba_data')
+			.then(response => response.json())
+			.then(data => {
+				const gameinfo = document.getElementById('gameinfo');
+				data.forEach(item => {
+					const listItem = document.createElement('li');
+					listItem.textContent = item;
+					gameinfo.appendChild(listItem);
+					});
+				})
+				.catch(error=> console.error("error" , error));
+		</script>
+	</ul>
+	<p>BOTTOM SHOULD MOVE ASYNC</p>
+</body>
+

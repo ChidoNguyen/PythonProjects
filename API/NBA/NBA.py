@@ -112,7 +112,7 @@ def ui_processing(teams):
         vs = lineup.rfind('vs')
         teamOne = lineup[vs-4:vs-1]
         teamTwo = lineup[vs+3:vs+6]
-        finalized.append((teamOne, teamTwo, times))
+        finalized.append([teamOne, teamTwo, times])
     return finalized
 def main():
     url = "https://www.nba.com/games?date=2024-02-23" 
@@ -120,7 +120,7 @@ def main():
     versus = matchup_extraction(selenium_soup)
     line_up = versus_data(versus)
     temp_text = ui_processing(line_up)
-    print(temp_text)
+    return temp_text
     #_div = matchup_div(BeautifulSoup(urllib.request.urlopen(baseURL+path_nba_games_today), 'lxml'))
     #tmp = nbaSoup.find_all('data-text')
     #print(tmp)
