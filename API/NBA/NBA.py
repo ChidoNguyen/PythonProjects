@@ -13,7 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 """
 Quick script to pull today's NBA matchups 
 """
-
+#TODO: Expand on data scraped, and organize it prior to sending off to flask for rendering
 
 
 ''' 
@@ -114,8 +114,8 @@ def ui_processing(teams):
         teamTwo = lineup[vs+3:vs+6]
         finalized.append([teamOne, teamTwo, times])
     return finalized
-def main():
-    url = "https://www.nba.com/games?date=2024-02-23" 
+def data_scrape():
+    url = "https://www.nba.com/games" 
     selenium_soup = sel_soup(url)
     versus = matchup_extraction(selenium_soup)
     line_up = versus_data(versus)
@@ -130,4 +130,4 @@ open nba ->  hard code "/games" but we can also check for tags where data-text i
 
 """
 if __name__ == "__main__":
-    main()
+    data_scrape()
