@@ -16,32 +16,6 @@ Quick script to pull today's NBA matchups
 #TODO: Expand on data scraped, and organize it prior to sending off to flask for rendering
 
 
-''' 
-#*Function : nba_game_path
-#*param  : BeautifulSoup object
-#*Purpose : create our BeautifulSoup object and find /games path
-'''
-def make_nba_soup(url):
-    try:
-        with urlopen(url) as nba:
-            soup = BeautifulSoup(nba, 'lxml')
-    except urllib.error.URLError as e:
-        print(e)
-    except urllib.error.HTTPError as e:
-        print(e)
-    return soup
-
-#*Function : nba_game_path
-#@param  : BeautifulSoup object , gPath (i.e /games/)
-def nba_game_path(soup, gPath):
-    tag_text = "SEE ALL GAMES"
-    tag_label = 'a'
-    # !! 2/21/204 data-id tag for scoreboard link is data-id="nba:game-tracker:link"
-    for items in soup.find_all(tag_label):
-        if items.get('data-id') == "nba:game-tracker:link":
-            return items.get('href')
-    return ""
-
 
 #*Function : matchup_div()
 #@param : 
