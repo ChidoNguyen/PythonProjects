@@ -19,7 +19,7 @@ Quick script to pull today's NBA matchups
 
 #*Function : matchup_div()
 #@param : 
-def matchup_extraction(soup):
+def matchup_extraction(soup) -> list:
     ''' find all sections with 'GameCard_gcMain' in their class string
         sections.children has a-tag html element we can extract matchups and time for later
     '''
@@ -59,7 +59,7 @@ def sel_soup(url):
 
 #*Function : matchup_div()
 #@param : versus is list of html elements with Tag.a related to "dates" games
-def versus_data(versus):
+def versus_data(versus) -> list:
     #versus is list of Tag.a objects we pull href out first
     team_vs_string = []
 
