@@ -1,0 +1,6 @@
+tic-tac-toe: react approach
+
+possible components:
+-table => made up of squares
+-a way to "click" or track user squares X/O
+-winner check or draw restart

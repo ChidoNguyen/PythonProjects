@@ -1,0 +1,18 @@
+/* Apply a border-spacing property for space between cells */
+table {
+    border-collapse:separate;
+    width: auto;
+    height:auto;
+    border: 10px solid #e80d0d;
+    margin: 0 auto;
+    margin-top:0;
+    margin-bottom:0;
+  }
+  
+  /* Style table headers */
+  td {
+    border: 1px solid #ddd;
+    padding: 30px;
+    box-sizing:border-box;
+    text-align:center;
+  }
