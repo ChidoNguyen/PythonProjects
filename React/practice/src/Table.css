@@ -1,9 +1,9 @@
 /* Apply a border-spacing property for space between cells */
 table {
     border-collapse:separate;
-    width: auto;
-    height:auto;
-    border: 10px solid #e80d0d;
+    width: 500px;
+    height: 500px;
+    border: 10px solid #ccc;
     margin: 0 auto;
     margin-top:0;
     margin-bottom:0;
@@ -12,7 +12,9 @@ table {
   /* Style table headers */
   td {
     border: 1px solid #ddd;
-    padding: 30px;
+    padding:0;
     box-sizing:border-box;
-    text-align:center;
+    width: auto;
+    height: auto;
+
   }
