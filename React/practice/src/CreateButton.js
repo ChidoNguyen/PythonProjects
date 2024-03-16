@@ -9,24 +9,18 @@ const CreateButton = (props) => {
 
     // on click we check 
     const handleClick = () =>{
-        if(playerText === ''){
-            if (props.count === 0){
-                setDisplayText('X');
-            }else{
-                setDisplayText('O');
-            }
-            props.move(buttKey);
-            
-            //let pC = props.count === 0 ? props.p1: props.p2;
-            //console.log(props.p1);
-            //console.log(props.p2);
-            if (props.win(pC)) {
-                window.location.reload()
-                //winner_restart();
-            }
-            props.turn();
-        } else{
-            alert("Can't make a play here!");
+        
+        //playable square check
+        //winner or loser(?)
+        let sq = props.key;
+
+        if (playerText === ''){ //check the useState of the button to see if its empty 
+            console.log("playable");
+            props.move(sq);
+            setDisplayText('X');
+        }else{
+            console.log("unplayble");
+            alert("no play");
         }
     };
 
