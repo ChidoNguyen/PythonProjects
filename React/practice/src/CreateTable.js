@@ -54,14 +54,13 @@ const CreateTable = () =>{
         // game winning logic check here
     };
     const makeMove = (boxKey) =>{
-        if(turnCount === 0){
-            // recommended to not mutate original but make new one
-            const newMoves = [...pOne,boxKey]
-            setPOne(newMoves)
-        } else {
-            const newMoves = [...pTwo,boxKey]
-            setPTwo(newMoves)
-        }
+        let playerArr = turnCount === 0 ? pOne : pTwo;
+        let setFunc = turnCount === 0? setPOne : setPTwo;
+        const newMoves = [...playerArr,boxKey];
+        setFunc(newMoves);
+        console.log(typeof(setFunc),playerArr,boxKey)
+        return newMoves;
+
     };
 
     return(
@@ -71,7 +70,7 @@ const CreateTable = () =>{
                     <tr key = {rowIndex}>
                         {cols.map( colIndex =>(
                             <td key = {colIndex}>
-                                <CreateButton p1 = {pOne}  p2 = {pTwo} buttonKey = {keygen(rowIndex,colIndex)} count = {turnCount} turn = {changeTurns} move = {makeMove} win = {WinCon} />
+                                <CreateButton p1 = {pOne}  p2 = {pTwo} buttonKey = {keygen(rowIndex,colIndex)} count = {turnCount} change_turn = {changeTurns} move = {makeMove} win = {WinCon} />
                             </td>
                         ))}
                     </tr>
