@@ -43,14 +43,14 @@ const CreateTable = () =>{
     const [pTwo,setPTwo] = useState([])
     const [turnCount , setTurnCount ] = useState(0);
     const [winner, setWiner] = useState(0); // 0 no win / 1 is p1 , 2 is p2
-
+    const [pString , setPString ] = useState('X');
+    
     const changeTurns = () =>{
         if (turnCount === 0){
             setTurnCount(1);
         } else {
             setTurnCount(0);
         }
-        //console.log(turnCount)
         // game winning logic check here
     };
     const makeMove = (boxKey) =>{
@@ -58,25 +58,31 @@ const CreateTable = () =>{
         let setFunc = turnCount === 0? setPOne : setPTwo;
         const newMoves = [...playerArr,boxKey];
         setFunc(newMoves);
-        console.log(typeof(setFunc),playerArr,boxKey)
         return newMoves;
 
     };
+    const updatePlayerTextHeader = () =>{
 
+        let pOneTwo = turnCount === 0 ?  'O' : 'X';
+        setPString(pOneTwo);
+    }
     return(
-        <table className = "board">
-            <tbody>
-                {rows.map( rowIndex =>(
-                    <tr key = {rowIndex}>
-                        {cols.map( colIndex =>(
-                            <td key = {colIndex}>
-                                <CreateButton p1 = {pOne}  p2 = {pTwo} buttonKey = {keygen(rowIndex,colIndex)} count = {turnCount} change_turn = {changeTurns} move = {makeMove} win = {WinCon} />
-                            </td>
-                        ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <div className = "tableDiv">
+            <h1>Player {pString} turn.</h1>
+            <table className = "board">
+                <tbody>
+                    {rows.map( rowIndex =>(
+                        <tr key = {rowIndex}>
+                            {cols.map( colIndex =>(
+                                <td key = {colIndex}>
+                                    <CreateButton p1 = {pOne}  p2 = {pTwo} buttonKey = {keygen(rowIndex,colIndex)} count = {turnCount} change_turn = {changeTurns} move = {makeMove} win = {WinCon} updateParent = {updatePlayerTextHeader}/>
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
     // we create a " double for loop" inside tbody to create our rows with (y) number of cols
     // tr = row , td = cols (td = table data)

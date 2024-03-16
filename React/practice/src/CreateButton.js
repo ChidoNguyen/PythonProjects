@@ -20,7 +20,7 @@ async function winnerRender(player){
             ;resolve();
         });
     }
-    await myAlert(player);
+    await myAlert(pText);
 };
 const CreateButton = (props) => {
     // make my button
@@ -34,10 +34,8 @@ const CreateButton = (props) => {
         // who gets to play
         //winner or loser(?)
         let sq = props.buttonKey;
-        console.log(sq);
         let pTurn = props.count;
         if (playerText === ''){ //check the useState of the button to see if its empty 
-            console.log("playable");
             let newM = props.move(sq);
             if(pTurn){
                 setDisplayText('O');
@@ -47,9 +45,11 @@ const CreateButton = (props) => {
             setTimeout(() => {
                 if(props.win(newM)){ 
                     winnerRender(pTurn);
+                    window.location.reload();
                 }
             },500);
         props.change_turn();
+        props.updateParent();
         }else{
             alert("no play");
         }

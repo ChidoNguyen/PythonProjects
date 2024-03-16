@@ -18,3 +18,7 @@ table {
     height: auto;
 
   }
+
+  .tableDiv {
+    text-align: center;
+  }
