@@ -46,6 +46,8 @@ const CreateButton = (props) => {
                 if(props.win(newM)){ 
                     winnerRender(pTurn);
                     window.location.reload();
+                }else if (props.p1.length + props.p2.length == 8){
+                    alert("draw")
                 }
             },500);
         props.change_turn();

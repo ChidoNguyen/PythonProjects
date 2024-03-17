@@ -15,8 +15,8 @@ const WinCon = (playerChoice) => {
                     ["20","21","22"],
 
                     ["00","10","20"],
-                    ["01","11","22"],
-                    ["02","12","20"],
+                    ["01","11","21"],
+                    ["02","12","22"],
 
                     ["00","11","22"],
                     ["02","11","20"]];
@@ -42,7 +42,6 @@ const CreateTable = () =>{
     const [pOne, setPOne] = useState([]);
     const [pTwo,setPTwo] = useState([])
     const [turnCount , setTurnCount ] = useState(0);
-    const [winner, setWiner] = useState(0); // 0 no win / 1 is p1 , 2 is p2
     const [pString , setPString ] = useState('X');
     
     const changeTurns = () =>{
@@ -66,6 +65,10 @@ const CreateTable = () =>{
         let pOneTwo = turnCount === 0 ?  'O' : 'X';
         setPString(pOneTwo);
     }
+
+    const drawReload = () => {
+        window.location.reload();
+    }
     return(
         <div className = "tableDiv">
             <h1>Player {pString} turn.</h1>
@@ -82,6 +85,7 @@ const CreateTable = () =>{
                     ))}
                 </tbody>
             </table>
+            <button className = "reset" onClick = {drawReload}>Reset</button>
         </div>
     );
     // we create a " double for loop" inside tbody to create our rows with (y) number of cols
