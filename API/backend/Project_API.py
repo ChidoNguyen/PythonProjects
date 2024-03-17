@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify , send_from_directory
+from flask_cors import CORS
 import os
 from NBA import NBA
 
@@ -7,7 +8,7 @@ def create_app():
     app = Flask(__name__)
     #!! self reminder -> windows cmd requires "python3 -m flask --app Project_API run" to work !!
 
-
+    CORS(app,origins = "http://localhost:3000")
     #Homepage 
     #Goal is to have links/titles or some form of alert to highlight each project.
     #
